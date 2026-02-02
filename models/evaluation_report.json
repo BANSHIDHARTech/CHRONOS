@@ -1,0 +1,177 @@
+{
+  "summary": {
+    "overall_accuracy": 0.18,
+    "best_regime": "regime_0",
+    "worst_regime": "regime_1",
+    "expected_calibration_error": 0.529237095117569,
+    "n_regime_transitions": 11,
+    "total_samples": 250
+  },
+  "per_regime_accuracy": {
+    "overall": 0.18,
+    "regime_0": 0.2336448598130841,
+    "regime_0_samples": 107,
+    "regime_0_name": "Euphoria",
+    "regime_1": 0.13131313131313133,
+    "regime_1_samples": 99,
+    "regime_1_name": "Complacency",
+    "regime_2": 0.1590909090909091,
+    "regime_2_samples": 44,
+    "regime_2_name": "Capitulation"
+  },
+  "confusion_matrix": {
+    "confusion_matrix": [
+      [
+        13,
+        11,
+        8,
+        3,
+        9
+      ],
+      [
+        25,
+        18,
+        7,
+        5,
+        3
+      ],
+      [
+        17,
+        23,
+        2,
+        8,
+        5
+      ],
+      [
+        21,
+        3,
+        6,
+        3,
+        6
+      ],
+      [
+        19,
+        11,
+        7,
+        8,
+        9
+      ]
+    ],
+    "labels": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "per_class_precision": [
+      0.1368421052631579,
+      0.2727272727272727,
+      0.06666666666666667,
+      0.1111111111111111,
+      0.28125
+    ],
+    "per_class_recall": [
+      0.29545454545454547,
+      0.3103448275862069,
+      0.03636363636363636,
+      0.07692307692307693,
+      0.16666666666666666
+    ],
+    "per_class_f1": [
+      0.18705035971223022,
+      0.2903225806451613,
+      0.047058823529411764,
+      0.09090909090909091,
+      0.20930232558139536
+    ],
+    "per_class_support": [
+      44,
+      58,
+      55,
+      39,
+      54
+    ],
+    "classification_report": "              precision    recall  f1-score   support\n\n           1       0.14      0.30      0.19        44\n           2       0.27      0.31      0.29        58\n           3       0.07      0.04      0.05        55\n           4       0.11      0.08      0.09        39\n           5       0.28      0.17      0.21        54\n\n    accuracy                           0.18       250\n   macro avg       0.17      0.18      0.16       250\nweighted avg       0.18      0.18      0.17       250\n"
+  },
+  "calibration": {
+    "bin_edges": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "bin_centers": [
+      0.1,
+      0.30000000000000004,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "bin_counts": [
+      0.0,
+      20.0,
+      61.0,
+      71.0,
+      98.0
+    ],
+    "mean_confidence": [
+      NaN,
+      0.3466453656554222,
+      0.5104169254420233,
+      0.7008235420979244,
+      0.9130863522996708
+    ],
+    "actual_accuracy": [
+      NaN,
+      0.25,
+      0.22950819672131148,
+      0.2112676056338028,
+      0.11224489795918367
+    ],
+    "calibration_error": [
+      NaN,
+      0.0966453656554222,
+      0.2809087287207118,
+      0.4895559364641216,
+      0.8008414543404871
+    ],
+    "expected_calibration_error": 0.529237095117569
+  },
+  "transition_analysis": {
+    "stable_accuracy": 0.19631901840490798,
+    "transition_accuracy": 0.14942528735632185,
+    "stable_samples": 163,
+    "transition_samples": 87,
+    "n_transitions": 11,
+    "transition_points": [
+      76,
+      77,
+      81,
+      95,
+      157,
+      161,
+      177,
+      210,
+      219,
+      233,
+      236
+    ]
+  },
+  "metadata": {
+    "n_samples": 250,
+    "n_quintiles": 5,
+    "n_regimes": 3,
+    "confidence_bins": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "transition_window": 5
+  }
+}

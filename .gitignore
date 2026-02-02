@@ -1,0 +1,114 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data files
+data/raw/*.csv
+data/processed/*.pkl
+data/processed/*.parquet
+# Keep README files
+!data/raw/README.md
+!data/processed/README.md
+
+# Model files
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.pt
+# Keep XGBoost JSON models (text-based, small)
+!models/*.json
+
+# Outputs
+outputs/
+# Keep the outputs README
+!outputs/README.md
+
+# Log files
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+# Keep the demo notebook
+!notebooks/demo_walkthrough.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Streamlit secrets (keep config)
+.streamlit/secrets.toml
+# Keep streamlit config
+!.streamlit/config.toml
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*~
+
+# Distribution / packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Cython
+cython_debug/

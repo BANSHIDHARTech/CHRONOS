@@ -1,0 +1,29 @@
+{
+  "n_components": 3,
+  "covariance_type": "full",
+  "training_info": {
+    "n_samples": 757,
+    "n_features": 8,
+    "converged": true,
+    "n_iter_used": 36,
+    "final_log_likelihood": -4336.244807055047,
+    "feature_names": null
+  },
+  "metadata": {
+    "train_start": "2019-01-01",
+    "train_end": "2022-12-31",
+    "n_train_samples": 757,
+    "feature_columns": [
+      "log_returns",
+      "parkinson_vol",
+      "rolling_sharpe",
+      "rolling_max_dd",
+      "vix_level",
+      "vix_percentile",
+      "rsi",
+      "momentum_20d"
+    ],
+    "avg_confidence": 0.9923025162882679,
+    "validation_passed": true
+  }
+}

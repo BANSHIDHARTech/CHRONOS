@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-02-02T13:17:51.420685",
+  "hyperparameters": {
+    "max_depth": 3,
+    "reg_lambda": 1,
+    "learning_rate": 0.1,
+    "n_estimators": 1000,
+    "early_stopping_rounds": 10,
+    "random_state": 42,
+    "n_jobs": -1,
+    "tree_method": "hist"
+  },
+  "trained_models": [
+    "regime_0",
+    "regime_1",
+    "regime_2"
+  ],
+  "feature_names": [
+    "log_returns",
+    "parkinson_vol",
+    "rsi",
+    "macd",
+    "macd_signal",
+    "macd_histogram",
+    "bb_width",
+    "atr",
+    "rolling_sharpe",
+    "rolling_max_dd",
+    "SMA_20",
+    "SMA_50",
+    "EMA_12",
+    "EMA_26",
+    "momentum_5d",
+    "momentum_10d",
+    "momentum_20d",
+    "vix_level",
+    "vix_percentile",
+    "volume_ratio"
+  ]
+}
