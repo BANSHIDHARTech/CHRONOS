@@ -18,6 +18,13 @@
 
 ---
 
+## 📊 Pitch Deck / Presentation
+
+[![Pitch Deck](https://img.shields.io/badge/📊_View_Pitch_Deck-Google_Slides-yellow?style=for-the-badge&logo=google)](https://docs.google.com/presentation/d/1UhT-gc1Vy55vGxnvnSx8zyUFcpVsHMz2/edit?usp=sharing&ouid=108309544140241004224&rtpof=true&sd=true)
+
+**[📑 View the complete pitch deck presentation](https://docs.google.com/presentation/d/1UhT-gc1Vy55vGxnvnSx8zyUFcpVsHMz2/edit?usp=sharing&ouid=108309544140241004224&rtpof=true&sd=true)**
+
+---
 ## 🎯 Executive Summary
 
 **CHRONOS** is an institutional-grade quantitative portfolio management system that achieves superior risk-adjusted returns through:
