@@ -97,33 +97,90 @@ flowchart TD
 
 ---
 
-## ⚡ Quick Demo (3 Minutes)
+## ⚡ Quick Start (Step-by-Step)
+
+### 1️⃣ Setup Virtual Environment
 
 ```powershell
-# 1. Install dependencies
+# Create virtual environment with Python 3.11
+py -3.11 -m venv venv
+
+# Activate environment
+venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
+```
 
-# 2. Validate configuration
-python config.py
+### 2️⃣ Run Data Pipeline
 
-# 3. Run data pipeline
-python -m src.data.pipeline
+```powershell
+# Download and process market data
+py -3.11 -m src.data.pipeline
 
-# 4. Train regime detector
-python -m src.models.train_regime_detector
+# Verify data pipeline
+pytest tests/test_data_pipeline.py -v
+```
 
-# 5. Run backtest
-python -m src.backtest.run_backtest
+### 3️⃣ Train Models
 
-# 6. Launch dashboard
+```powershell
+# Train Hidden Markov Model (Regime Detector)
+py -3.11 -m src.models.train_hmm
+
+# Validate regime detector
+py -3.11 -m src.models.validate_hmm
+
+# Train XGBoost Ensemble
+py -3.11 src/models/train_ensemble.py
+```
+
+### 4️⃣ Prepare Data Files
+
+```powershell
+# Validate portfolio configuration
+py -3.11 validate_portfolio.py
+
+# Convert pickle files to CSV format
+py -3.11 -c "import pandas as pd; pd.read_pickle('data/processed/features.pkl').to_csv('data/processed/features.csv'); pd.read_pickle('data/processed/aligned_data.pkl')[['log_returns']].rename(columns={'log_returns': 'returns'}).to_csv('data/processed/returns.csv'); print('✅ Both CSV files created!')"
+
+# Generate asset returns
+py -3.11 -c "import pandas as pd; raw = pd.read_csv('data/raw/SPY_2019-01-01_2024-12-31.csv', index_col=0, parse_dates=True)['Close'].pct_change(); tlt = pd.read_csv('data/raw/TLT_2019-01-01_2024-12-31.csv', index_col=0, parse_dates=True)['Close'].pct_change(); gld = pd.read_csv('data/raw/GLD_2019-01-01_2024-12-31.csv', index_col=0, parse_dates=True)['Close'].pct_change(); returns = pd.DataFrame({'SPY': raw, 'TLT': tlt, 'GLD': gld}); returns.to_csv('data/processed/returns.csv'); print('✅ Asset returns created!')"
+```
+
+### 5️⃣ Run Backtest & Analysis
+
+```powershell
+# Validate backtest configuration
+py -3.11 validate_backtest_data.py
+
+# Test backtest system
+py -3.11 -m pytest tests/test_backtest.py -v
+
+# Run full backtest
+py -3.11 -m src.backtest.run_backtest
+
+# Generate SHAP interpretability analysis
+py -3.11 -m src.interpretability.run_shap_analysis
+
+# Create all visualizations
+py -3.11 -m src.visualization.generate_all_plots
+```
+
+### 6️⃣ Launch Dashboard
+
+```powershell
+# Start Streamlit dashboard
 streamlit run app.py
 ```
 
 Then open `http://localhost:8501` to see:
-- Current market regime with confidence
-- Regime-colored price chart
-- Performance comparison vs benchmark
-- SHAP feature importance
+- ✅ Current market regime with confidence
+- ✅ Regime-colored price chart
+- ✅ Performance comparison vs benchmark
+- ✅ SHAP feature importance
+- ✅ Portfolio allocation over time
+- ✅ Risk metrics and drawdown analysis
 
 ---
 
@@ -131,46 +188,154 @@ Then open `http://localhost:8501` to see:
 
 ```
 CHRONOS/
-├── app.py                          # Streamlit dashboard
-├── config.py                       # Central configuration
-├── requirements.txt                # Dependencies
+├── 📄 app.py                              # 🎨 Streamlit Dashboard Entry Point
+├── 📄 config.py                           # ⚙️ Central Configuration
+├── 📄 requirements.txt                    # 📦 Python Dependencies
+├── 📄 runtime.txt                         # 🐍 Python Version Specification
+├── 📄 LICENSE                             # 📜 MIT License
+├── 📄 README.md                           # 📖 This File
+├── 📄 QUICKSTART.md                       # 🚀 Quick Start Guide
+├── 📄 RESULTS.md                          # 📊 Performance Results
+├── 📄 IMPLEMENTATION_SUMMARY.md           # 💡 Implementation Overview
+├── 📄 SUBMISSION_CHECKLIST.md             # ✅ Pre-Submission Checklist
+├── 📄 RUN_INSTRUCTIONS.md                 # 🏃 Detailed Run Instructions
+├── 📄 VISUALIZATION_RUN_INSTRUCTIONS.md   # 📈 Visualization Guide
+├── 📄 ANTI_LEAKAGE_ARCHITECTURE.md        # 🔒 Anti-Leakage Protocol
+├── 📄 validate_portfolio.py               # ✔️ Portfolio Validator
+├── 📄 validate_backtest_data.py           # ✔️ Backtest Data Validator
+├── 📄 validate_system.py                  # ✔️ System Validator
 │
-├── src/
-│   ├── data/                       # Data pipeline
-│   │   ├── data_loader.py         # yfinance downloads
-│   │   ├── feature_engineering.py # Technical indicators
-│   │   ├── target_engineering.py  # Quintile labels
-│   │   └── pipeline.py            # Orchestration
+├── 📁 src/                                # 🧠 Core System Code
+│   ├── 📄 __init__.py
 │   │
-│   ├── models/                     # ML models
-│   │   ├── regime_detector.py     # Gaussian HMM
-│   │   ├── xgb_ensemble.py        # XGBoost ensemble
-│   │   └── predictor.py           # Dynamic prediction
+│   ├── 📁 data/                           # 📊 Data Pipeline
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 data_loader.py              # Download from yfinance
+│   │   ├── 📄 feature_engineering.py      # Technical indicators (RSI, MACD, etc.)
+│   │   ├── 📄 target_engineering.py       # Quintile labeling
+│   │   ├── 📄 data_splitter.py            # Train/Val/Test splitting
+│   │   └── 📄 pipeline.py                 # Orchestration pipeline
 │   │
-│   ├── portfolio/                  # Portfolio management
-│   │   ├── cvar_optimizer.py      # CVaR optimization
-│   │   └── rebalancer.py          # Trade execution
+│   ├── 📁 models/                         # 🤖 Machine Learning Models
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 regime_detector.py          # Gaussian HMM
+│   │   ├── 📄 train_hmm.py                # HMM training script
+│   │   ├── 📄 validate_hmm.py             # HMM validation script
+│   │   ├── 📄 xgb_ensemble.py             # XGBoost ensemble
+│   │   ├── 📄 train_ensemble.py           # Ensemble training script
+│   │   └── 📄 predictor.py                # Dynamic prediction
 │   │
-│   ├── backtest/                   # Backtesting
-│   │   └── walk_forward.py        # Walk-forward sim
+│   ├── 📁 portfolio/                      # 💼 Portfolio Management
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 cvar_optimizer.py           # CVaR optimization
+│   │   ├── 📄 rebalancer.py               # Trade execution
+│   │   └── 📄 performance_tracker.py      # Performance tracking
 │   │
-│   └── interpretability/           # Model explainability
-│       └── shap_analyzer.py       # SHAP analysis
+│   ├── 📁 backtest/                       # 🔄 Backtesting Engine
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 walk_forward.py             # Walk-forward simulation
+│   │   └── 📄 run_backtest.py             # Backtest runner
+│   │
+│   ├── 📁 interpretability/               # 🔍 Model Explainability
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 shap_analyzer.py            # SHAP analysis
+│   │   └── 📄 run_shap_analysis.py        # SHAP runner
+│   │
+│   ├── 📁 visualization/                  # 📊 Plotting & Charts
+│   │   ├── 📄 __init__.py
+│   │   ├── 📄 plot_regime.py              # Regime charts
+│   │   ├── 📄 plot_performance.py         # Performance charts
+│   │   ├── 📄 plot_allocation.py          # Allocation charts
+│   │   ├── 📄 plot_risk.py                # Risk charts
+│   │   └── 📄 generate_all_plots.py       # Generate all plots
+│   │
+│   ├── 📁 evaluation/                     # 📈 Model Evaluation
+│   │   ├── 📄 __init__.py
+│   │   └── 📄 metrics.py                  # Performance metrics
+│   │
+│   └── 📁 utils/                          # 🛠️ Utility Functions
+│       ├── 📄 __init__.py
+│       ├── 📄 logger.py                   # Logging setup
+│       └── 📄 helpers.py                  # Helper functions
 │
-├── docs/                           # Documentation
-│   ├── ARCHITECTURE.md            # System architecture
-│   ├── METHODOLOGY.md             # Technical methodology
-│   ├── DASHBOARD_GUIDE.md         # Dashboard guide
-│   └── DEMO_SCRIPT.md             # Demo video script
+├── 📁 data/                               # 💾 Data Storage
+│   ├── 📁 raw/                            # Raw market data (CSV)
+│   │   ├── 📄 README.md
+│   │   ├── 📄 SPY_2019-01-01_2024-12-31.csv
+│   │   ├── 📄 TLT_2019-01-01_2024-12-31.csv
+│   │   ├── 📄 GLD_2019-01-01_2024-12-31.csv
+│   │   ├── 📄 VIX_2019-01-01_2024-12-31.csv
+│   │   ├── 📄 TNX_2019-01-01_2024-12-31.csv
+│   │   └── 📄 GC_F_2019-01-01_2024-12-31.csv
+│   │
+│   └── 📁 processed/                      # Processed features & labels
+│       ├── 📄 features.csv                # Engineered features
+│       ├── 📄 features.pkl                # Pickled features
+│       ├── 📄 returns.csv                 # Asset returns
+│       ├── 📄 regime_labels.csv           # HMM regime labels
+│       └── 📄 aligned_data.pkl            # Aligned dataset
 │
-├── tests/                          # Test suite
-│   ├── test_data_pipeline.py
-│   ├── test_regime_detection.py
-│   ├── test_portfolio_optimization.py
-│   └── test_backtest.py
+├── 📁 models/                             # 🧠 Trained Model Artifacts
+│   ├── 📄 regime_detector.json            # HMM parameters
+│   ├── 📄 xgb_regime_0_euphoria.json      # XGBoost for Euphoria
+│   ├── 📄 xgb_regime_1_complacency.json   # XGBoost for Complacency
+│   ├── 📄 xgb_regime_2_capitulation.json  # XGBoost for Capitulation
+│   ├── 📄 ensemble_metadata.json          # Ensemble metadata
+│   ├── 📄 training_metrics.json           # Training metrics
+│   └── 📄 evaluation_report.json          # Evaluation report
 │
-└── notebooks/                      # Jupyter notebooks
-    └── demo_walkthrough.ipynb     # Interactive demo
+├── 📁 outputs/                            # 📊 Generated Outputs
+│   ├── 📄 README.md
+│   │
+│   ├── 📁 backtest/                       # Backtest results
+│   │   ├── 📄 backtest_results.csv
+│   │   ├── 📄 trade_log.csv
+│   │   ├── 📄 performance_attribution.csv
+│   │   ├── 📄 regime_performance.csv
+│   │   ├── 📄 crisis_analysis.csv
+│   │   ├── 📄 crisis_report.md
+│   │   ├── 📄 summary_statistics.json
+│   │   ├── 📄 transition_statistics.json
+│   │   └── 📄 dashboard_data.json
+│   │
+│   ├── 📁 figures/                        # Visualization outputs
+│   │   ├── 📁 performance/
+│   │   ├── 📁 regime/
+│   │   ├── 📁 allocation/
+│   │   └── 📁 risk/
+│   │
+│   ├── 📁 shap/                           # SHAP analysis outputs
+│   │   └── (SHAP plots & data)
+│   │
+│   ├── 📁 regime_analysis/                # Regime analysis outputs
+│   │   ├── 📄 model_info.json
+│   │   ├── 📄 regime_durations.csv
+│   │   └── 📄 regime_statistics.json
+│   │
+│   └── 📁 results/                        # Additional results
+│
+├── 📁 tests/                              # ✅ Test Suite
+│   ├── 📄 __init__.py
+│   ├── 📄 test_data_pipeline.py           # Data pipeline tests
+│   ├── 📄 test_regime_detection.py        # Regime detector tests
+│   ├── 📄 test_portfolio_optimization.py  # Portfolio optimizer tests
+│   ├── 📄 test_backtest.py                # Backtest engine tests
+│   ├── 📄 test_streamlit_app.py           # Dashboard tests
+│   └── 📄 test_visualizations.py          # Visualization tests
+│
+├── 📁 notebooks/                          # 📓 Jupyter Notebooks
+│   ├── 📄 demo_walkthrough.ipynb          # Interactive demo
+│   ├── 📄 shap_analysis_tutorial.ipynb    # SHAP tutorial
+│   └── 📄 xgboost_evaluation.ipynb        # Model evaluation
+│
+├── 📁 docs/                               # 📚 Documentation
+│   ├── 📄 ARCHITECTURE.md                 # System architecture
+│   ├── 📄 METHODOLOGY.md                  # Technical methodology
+│   ├── 📄 DASHBOARD_GUIDE.md              # Dashboard user guide
+│   └── 📄 DEMO_SCRIPT.md                  # Demo video script
+│
+└── 📁 architecture/                       # 🏗️ Architecture Diagrams
+    └── (System diagrams & flowcharts)
 ```
 
 ---
@@ -179,8 +344,9 @@ CHRONOS/
 
 ### Prerequisites
 
-- Python 3.10+
-- pip or conda
+- **Python 3.11** (Required)
+- pip package manager
+- Git (for cloning)
 
 ### Step 1: Clone Repository
 
@@ -192,9 +358,14 @@ cd CHRONOS
 ### Step 2: Create Virtual Environment
 
 ```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1  # Windows
-# source venv/bin/activate   # Linux/Mac
+# Create virtual environment with Python 3.11
+py -3.11 -m venv venv
+
+# Activate environment (Windows)
+venv\Scripts\activate
+
+# For Linux/Mac:
+# source venv/bin/activate
 ```
 
 ### Step 3: Install Dependencies
@@ -206,8 +377,11 @@ pip install -r requirements.txt
 ### Step 4: Verify Installation
 
 ```powershell
-python config.py  # Should print "✅ Configuration valid"
-pytest tests/ -v  # Run test suite
+# Validate configuration
+py -3.11 config.py  # Should print "✅ Configuration valid"
+
+# Run test suite
+pytest tests/ -v  # All tests should pass
 ```
 
 ---
