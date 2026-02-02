@@ -6,6 +6,16 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.29+-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
+
+---
+
+## � Demo Video
+
+[![CHRONOS Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=PxSqT8sU8q4)
+
+**[🎬 Click here to watch the full demo](https://www.youtube.com/watch?v=PxSqT8sU8q4)**
+
 ---
 
 ## 🎯 Executive Summary
@@ -477,82 +487,6 @@ pytest tests/test_regime_detection.py -v
 pytest tests/test_portfolio_optimization.py -v
 ```
 
-### Validation Checklist
-
-- [ ] All tests pass
-- [ ] Configuration valid
-- [ ] No lookahead bias
-- [ ] Train/val/test splits don't overlap
 
 ---
 
-## 🔧 Troubleshooting
-
-### yfinance Download Fails
-
-```powershell
-# Use cached data or force retry
-python -m src.data.pipeline --no-cache
-```
-
-### TA-Lib Not Installed
-
-System automatically falls back to `pandas-ta`. No action needed.
-
-### Streamlit Port Conflict
-
-```powershell
-# Use different port
-streamlit run app.py --server.port 8502
-```
-
-### Memory Error
-
-Reduce date range in `config.py` or use fewer tickers.
-
----
-
-## 📚 Documentation
-
-| Document | Description |
-|----------|-------------|
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture with diagrams |
-| [METHODOLOGY.md](docs/METHODOLOGY.md) | HMM, CVaR, SHAP methodology |
-| [DASHBOARD_GUIDE.md](docs/DASHBOARD_GUIDE.md) | Dashboard user guide |
-| [RESULTS.md](RESULTS.md) | Performance results and analysis |
-| [DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | Demo video script |
-| [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) | Pre-submission verification |
-
----
-
-## 🤝 Contributing
-
-### Code Style
-
-- Follow PEP 8 guidelines
-- Add docstrings to all functions
-- Include type hints
-- Write tests for new features
-
-### Anti-Leakage Protocol
-
-**Every new feature must:**
-1. Use `.shift(1)` before returning
-2. Include validation in tests
-3. Document why the shift is necessary
-
----
-
-## 📄 License
-
-This project is for educational and research purposes.
-
----
-
-## 📞 Contact
-
-For questions or issues, please review the documentation and test suite, or open an issue on GitHub.
-
----
-
-> **CRITICAL REMINDER**: Always validate that features at time `t` do not use information from time `t` or later. This is the #1 cause of failed quantitative strategies.
