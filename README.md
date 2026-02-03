@@ -211,13 +211,6 @@ CHRONOS/
 ├── 📄 runtime.txt                         # 🐍 Python Version Specification
 ├── 📄 LICENSE                             # 📜 MIT License
 ├── 📄 README.md                           # 📖 This File
-├── 📄 QUICKSTART.md                       # 🚀 Quick Start Guide
-├── 📄 RESULTS.md                          # 📊 Performance Results
-├── 📄 IMPLEMENTATION_SUMMARY.md           # 💡 Implementation Overview
-├── 📄 SUBMISSION_CHECKLIST.md             # ✅ Pre-Submission Checklist
-├── 📄 RUN_INSTRUCTIONS.md                 # 🏃 Detailed Run Instructions
-├── 📄 VISUALIZATION_RUN_INSTRUCTIONS.md   # 📈 Visualization Guide
-├── 📄 ANTI_LEAKAGE_ARCHITECTURE.md        # 🔒 Anti-Leakage Protocol
 ├── 📄 validate_portfolio.py               # ✔️ Portfolio Validator
 ├── 📄 validate_backtest_data.py           # ✔️ Backtest Data Validator
 ├── 📄 validate_system.py                  # ✔️ System Validator
@@ -353,6 +346,8 @@ CHRONOS/
 │
 └── 📁 architecture/                       # 🏗️ Architecture Diagrams
     └── (System diagrams & flowcharts)
+
+
 ```
 
 ---
